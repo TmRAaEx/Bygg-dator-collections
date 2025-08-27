@@ -1,111 +1,166 @@
+/* Create form */
+
 /* Wrapper for the form */
 .bdc-collection-form {
-    max-width: 500px;
-    margin: 2rem auto;
-    padding: 1.5rem;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    font-family: inherit;
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-family: inherit;
 }
 
 /* Labels */
 .bdc-collection-form label {
-    font-weight: 600;
-    margin-bottom: 0.3rem;
-    display: block;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  display: block;
 }
 
 /* Inputs and buttons */
 .bdc-collection-form input[type="text"],
 .bdc-collection-form input[type="file"],
 .bdc-collection-form select {
-    width: 100%;
-    padding: 0.6rem;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 1rem;
-    transition: border-color 0.2s ease;
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
 }
 
 .bdc-collection-form input:focus,
 .bdc-collection-form select:focus {
-    border-color: #2271b1;
-    outline: none;
+  border-color: #2271b1;
+  outline: none;
 }
 
 /* Product list */
 #bdc-selected-products {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 #bdc-selected-products li {
-    padding: 0.4rem 0.6rem;
-    border-bottom: 1px solid #eee;
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid #eee;
 }
 
 /* Upload label with image */
 #image_upload-label {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    cursor: pointer;
-    background: #f9f9f9;
-    padding: 0.6rem;
-    border-radius: 6px;
-    border: 1px dashed #ccc;
-    transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  cursor: pointer;
+  background: #f9f9f9;
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px dashed #ccc;
+  transition: background 0.2s ease;
 }
 
 #image_upload-label:hover {
-    background: #f1f1f1;
+  background: #f1f1f1;
 }
 
 #image_upload-label img {
-    width: 48px;
-    height: 48px;
-    object-fit: contain;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
 }
 
 /* Hide default file input */
 #collection_image {
-    display: none;
+  display: none;
 }
 
 /* Primary button */
 .bdc-collection-form button[type="submit"],
 #bdc-add-product {
-    padding: 0.7rem 1.2rem;
-    background: #2271b1;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.2s ease;
+  padding: 0.7rem 1.2rem;
+  background: #2271b1;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
 .bdc-collection-form button:hover,
 #bdc-add-product:hover {
-    background: #1d5f91;
+  background: #1d5f91;
 }
 
 /* Modal styling */
 #bdc-product-modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 1rem;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  max-width: 500px;
+  width: 90%;
+}
+
+/* -------- */
+
+/* Single page */
+
+.bdc-collection-single {
+    max-width: 900px;
+    margin: auto;
+    font-family: sans-serif;
+}
+
+.bdc-gallery img {
+    width: 100%;
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    z-index: 9999;
-    max-width: 500px;
-    width: 90%;
+    margin-bottom: 1rem;
+}
+
+.bdc-product-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+}
+
+.bdc-product-list li {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 0.5rem 0;
+    gap: 1rem;
+}
+
+.bdc-product-list img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.bdc-buy-btn {
+    background: #0071a1;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.bdc-meta {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 1rem;
 }

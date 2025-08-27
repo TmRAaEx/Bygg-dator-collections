@@ -7,7 +7,7 @@ get_header(); ?>
 
 <div class="bdc-archive">
     <h1><?php post_type_archive_title(); ?></h1>
-
+    <a href="/skapa-kollektion">Skapa ny kollektion</a>
     <?php if (have_posts()): ?>
         <ul class="bdc-collections-list">
             <?php while (have_posts()):

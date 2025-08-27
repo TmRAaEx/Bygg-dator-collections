@@ -40,14 +40,15 @@ class BDC_Assets
     public static function enqueue_js()
     {
         wp_enqueue_script(
-            'bdc-frontend',
-            plugin_dir_url(__FILE__) . 'assets/js/frontend.js',
-            ['jquery'],
+            'bdc-create-collection',
+            plugin_dir_url(__FILE__) . 'assets/js/create-collection.js',
+            [],
             '1.0',
             true
         );
 
-        wp_localize_script('bdc-frontend', 'bdc_ajax_object', [
+
+        wp_localize_script('bdc-create-collection', 'bdc_ajax_object', [
             'ajax_url' => admin_url('admin-ajax.php'),
         ]);
     }
