@@ -38,7 +38,7 @@ class BDC_CPT
         $args = [
             'labels' => $labels,
             'public' => true,
-            'has_archive' => true,
+            'has_archive' => true, 
             'show_in_menu' => true,
             'menu_position' => 25,
             'menu_icon' => 'dashicons-products',

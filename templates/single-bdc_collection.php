@@ -15,7 +15,8 @@ get_header(); ?>
         <?php if (has_post_thumbnail()) {
             the_post_thumbnail('large');
         } ?>
-        <!-- Om du vill ha flera bilder kan du loopa custom fields här -->
+
+        <!--  Might add more images -->
     </div>
 
     <h2>Produkter i kollektionen</h2>
@@ -43,8 +44,7 @@ get_header(); ?>
     <button class="bdc-buy-btn">Köp hela kollektionen</button>
 
     <div class="bdc-meta">
-        <p>Skapad av: <?php echo get_the_author_meta('display_name', get_post_field('post_author', get_the_ID())); ?>
-        </p>
+        <p>Skapad av: <?php echo get_the_author_meta('display_name', get_post_field('post_author', get_the_ID())); ?></p>
         <p>Datum: <?php echo get_the_date(); ?></p>
     </div>
 

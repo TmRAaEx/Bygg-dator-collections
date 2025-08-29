@@ -18,7 +18,6 @@ class BDC_Shortcodes
         }
 
 
-        //TODO: lägg med bilder, pris och länk till enksilda produkter samt total pris automatiskt
 
         ob_start();
         ?>
