@@ -1,0 +1,57 @@
+/* PC Build Form Styles */
+.pc-build-form {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    font-family: Arial, sans-serif;
+}
+
+.pc-build-form .pc-build-field {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.pc-build-form label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.pc-build-form input[type="text"],
+.pc-build-form textarea,
+.pc-build-form select {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.pc-build-form button[type="submit"] {
+    padding: 0.75rem 1.5rem;
+    background: #0073aa;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s ease;
+}
+
+.pc-build-form button[type="submit"]:hover {
+    background: #005177;
+}
+
+/* Select2 adjustments */
+#pc_build_products {
+    width: 100% !important; /* force full width */
+}
+
+#pc-build-message {
+    margin-top: 1rem;
+    font-weight: 600;
+}
