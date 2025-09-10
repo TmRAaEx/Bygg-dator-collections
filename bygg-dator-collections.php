@@ -27,7 +27,7 @@ add_action('plugins_loaded', 'pc_builds_load_textdomain');
 
 
 /**
- * Register Custom Post Type: PC Builds
+ * Register Custom Post Type: PC Builds 
  */
 function pc_builds_register_cpt()
 {
@@ -50,6 +50,7 @@ function pc_builds_register_cpt()
     $args = array(
         'labels' => $labels,
         'public' => true,
+        'exclude_from_search' => false,
         'has_archive' => true,
         'menu_icon' => 'dashicons-desktop', // WordPress icon
         'supports' => array('title', 'editor', 'thumbnail', 'custom-fields'),

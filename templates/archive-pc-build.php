@@ -18,7 +18,7 @@ $args = [
     's' => $search,
 ];
 
-if ($selected_cat) {
+if ($selected_cat > 0) {
     $args['tax_query'] = [
         [
             'taxonomy' => 'pc_build_category',
@@ -34,7 +34,6 @@ $query = new WP_Query($args);
 <!-- Filter Form -->
 <form method="get" class="pc-build-filter-form">
     <input type="text" name="s" placeholder="Sök builds" value="<?php echo esc_attr($search); ?>">
-
     <?php
     wp_dropdown_categories([
         'taxonomy' => 'pc_build_category',
