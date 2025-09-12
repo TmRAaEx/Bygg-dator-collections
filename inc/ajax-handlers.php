@@ -6,11 +6,24 @@ function pc_build_products_search()
     check_ajax_referer('pc_builds_search', 'nonce');
 
     $q = sanitize_text_field($_GET['q'] ?? '');
-    $products = wc_get_products(['limit' => 10, 'search' => $q]);
+
+    $args = [
+        'post_type'      => 'product',
+        'post_status'    => 'publish',
+        'posts_per_page' => 10,
+        's'              => $q,
+    ];
+
+    $query = new WP_Query($args);
 
     $results = [];
-    foreach ($products as $p) {
-        $results[] = ['id' => $p->get_id(), 'text' => $p->get_name()];
+    if ($query->have_posts()) {
+        foreach ($query->posts as $post) {
+            $results[] = [
+                'id'   => $post->ID,
+                'text' => get_the_title($post->ID),
+            ];
+        }
     }
 
     wp_send_json($results);
@@ -27,7 +40,7 @@ function pc_builds_create_callback()
     $description = sanitize_textarea_field($_POST['pc_build_description'] ?? '');
     $category = intval($_POST['pc_build_category'] ?? 0);
     $products = array_map('intval', $_POST['pc_build_products'] ?? []);
-
+    
     if (!$title || count($products) < 2) {
         wp_send_json_error(__('Please provide a title and select at least 2 products.', 'pc-builds'));
     }

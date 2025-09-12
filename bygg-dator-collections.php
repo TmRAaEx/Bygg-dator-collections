@@ -165,3 +165,12 @@ function pc_builds_load_templates($template)
 
     return $template; // fallback to theme template
 }
+
+
+// make woocommerce products searchable
+add_filter('woocommerce_product_data_store_cpt_get_products_query', function($query, $query_vars) {
+    if (!empty($query_vars['s'])) {
+        $query['s'] = $query_vars['s'];
+    }
+    return $query;
+}, 10, 2);
