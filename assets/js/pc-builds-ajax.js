@@ -12,7 +12,7 @@ jQuery(function ($) {
         return {
           action: "pc_build_products_search",
           q: params.term, // search term
-          nonce: pcBuildsAjax.nonce,
+          nonce: pcBuildsAjax.search_nonce,
         };
       },
       processResults: function (data) {
@@ -24,31 +24,41 @@ jQuery(function ($) {
   // Handle form submission
   $("#pc-build-form").on("submit", function (e) {
     e.preventDefault();
-    var form = $(this);
+    const form = $(this)[0];
+    const formData = new FormData(form);
 
-    var data = {
-      action: "pc_build_create",
-      nonce: pcBuildsAjax.nonce,
-      title: form.find('[name="pc_build_title"]').val(),
-      description: form.find('[name="pc_build_description"]').val(),
-      category: form.find('[name="pc_build_category"]').val(),
-      products: form.find('[name="pc_build_products[]"]').val(),
-    };
+    formData.append("action", "pc_build_create");
+    formData.append("nonce", pcBuildsAjax.nonce);
 
-    $.post(pcBuildsAjax.ajax_url, data, function (response) {
-      if (response.success) {
-        $("#pc-build-message").html(
-          '<p>PC Build created! <a href="' +
-            response.data.url +
-            '">View it here</a></p>'
-        );
-        form[0].reset();
-        $("#pc_build_products").val(null).trigger("change");
-      } else {
-        $("#pc-build-message").html(
-          '<p style="color:red">' + response.data + "</p>"
-        );
-      }
+    // Add selected products (Select2)
+    const products = $("#pc_build_products").val();
+    if (products) {
+      products.forEach(function (id) {
+        formData.append("products[]", id);
+      });
+    }
+
+    $.ajax({
+      url: pcBuildsAjax.ajax_url,
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function (response) {
+        if (response.success) {
+          $("#pc-build-message").html(
+            '<p>PC Build created! <a href="' +
+              response.data.url +
+              '">View it here</a></p>'
+          );
+          $("#pc-build-form")[0].reset();
+          $("#pc_build_products").val(null).trigger("change");
+        } else {
+          $("#pc-build-message").html(
+            '<p style="color:red">' + response.data + "</p>"
+          );
+        }
+      },
     });
   });
 });

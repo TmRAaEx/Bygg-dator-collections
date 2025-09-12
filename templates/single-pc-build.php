@@ -13,7 +13,7 @@ if (have_posts()):
 
         <h1><?php the_title(); ?></h1>
         <div><?php the_content(); ?></div>
-
+        <div><img src="<?php echo the_post_thumbnail_url(); ?>"></div>
         <h2>Produkter</h2>
         <ul class="pc-build-products">
             <?php foreach ($products as $pid):

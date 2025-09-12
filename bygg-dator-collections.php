@@ -137,6 +137,7 @@ function pc_builds_enqueue_scripts()
     wp_localize_script('pc-builds-ajax', 'pcBuildsAjax', [
         'ajax_url' => admin_url('admin-ajax.php'),
         'nonce' => wp_create_nonce('pc_builds_create'),
+        'search_nonce' => wp_create_nonce('pc_builds_search')
     ]);
 }
 add_action('wp_enqueue_scripts', 'pc_builds_enqueue_scripts');

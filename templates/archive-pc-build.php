@@ -31,6 +31,9 @@ if ($selected_cat > 0) {
 $query = new WP_Query($args);
 ?>
 
+<!-- TODO: Make fancier -->
+<a href="/create-pc-build">Skapa pc build</a>
+
 <!-- Filter Form -->
 <form method="get" class="pc-build-filter-form">
     <input type="text" name="s" placeholder="Sök builds" value="<?php echo esc_attr($search); ?>">

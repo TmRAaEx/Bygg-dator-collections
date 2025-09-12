@@ -20,6 +20,11 @@ function pc_builds_creation_form_shortcode()
         </p>
 
         <p class="pc-build-field">
+            <label><?php _e('Bild på bygget', 'pc-builds') ?></label>
+            <input type="file" name="pc_build_image">
+        </p>
+
+        <p class="pc-build-field">
             <label><?php _e('Beskrivning', 'pc-builds'); ?></label>
             <textarea name="pc_build_description" rows="5"></textarea>
         </p>
@@ -42,7 +47,7 @@ function pc_builds_creation_form_shortcode()
         </p>
 
         <p class="pc-build-field">
-            <button type="submit"><?php _e('Skapa PC-bygg', 'pc-builds'); ?></button>
+            <button type="submit"><?php _e('Skapa PC-build', 'pc-builds'); ?></button>
         </p>
 
         <div id="pc-build-message"></div>
