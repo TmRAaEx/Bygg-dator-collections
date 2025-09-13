@@ -46,13 +46,23 @@ jQuery(function ($) {
       contentType: false,
       success: function (response) {
         if (response.success) {
-          $("#pc-build-message").html(
+          $("#pc-build-message").html(  
             '<p>PC Build created! <a href="' +
               response.data.url +
               '">View it here</a></p>'
           );
           $("#pc-build-form")[0].reset();
           $("#pc_build_products").val(null).trigger("change");
+
+          // Tag manager
+          window.dataLayer = window.dataLayer || [];
+
+          window.dataLayer.push({
+            event: "pc_build_created",
+            pc_build_id: response.data.id,
+          });
+
+          // -----
         } else {
           $("#pc-build-message").html(
             '<p style="color:red">' + response.data + "</p>"

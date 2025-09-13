@@ -28,6 +28,16 @@ if ($selected_cat > 0) {
     ];
 }
 
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'date';
+
+if ($sort === 'title') {
+    $args['orderby'] = 'title';
+    $args['order'] = 'ASC';
+} else {
+    $args['orderby'] = 'date';
+    $args['order'] = 'DESC';
+}
+
 $query = new WP_Query($args);
 ?>
 
@@ -45,6 +55,10 @@ $query = new WP_Query($args);
         'selected' => $selected_cat
     ]);
     ?>
+    <select name="sort">
+        <option value="date" <?php selected($_GET['sort'] ?? '', 'date'); ?>>Senast skapade</option>
+        <option value="title" <?php selected($_GET['sort'] ?? '', 'title'); ?>>Alfabetiskt (A-Ö)</option>
+    </select>
     <button type="submit">Filtrera</button>
 </form>
 
