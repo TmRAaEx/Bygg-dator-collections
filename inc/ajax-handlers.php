@@ -59,6 +59,13 @@ function pc_builds_create_callback()
 
         bdc_upload_image();
 
+        do_action('pc_build_created', $post_id, get_current_user_id(), [
+            'title' => $title,
+            'description' => $description,
+            'category' => $category,
+            'products' => $products,
+        ]);
+
         wp_send_json_success(['url' => get_permalink($post_id)]);
     }
 
