@@ -36,13 +36,15 @@ if (have_posts()):
         if (isset($_POST['add_all_to_cart'])) {
             $cart_products = apply_filters('pc_build_cart_products', $products, get_the_ID());
             foreach ($cart_products as $pid) {
-                WC()->cart->add_to_cart($pid);
+                WC()->cart->add_to_cart($pid, 1, 0, [], [
+                    'pc_build_id' => get_the_ID()
+                ]);
             }
             do_action('pc_build_added_to_cart', get_the_ID(), get_current_user_id());
             wc_add_notice(__('Alla produkter har lagts i varukorgen.', 'pc-builds'), 'success');
-            wp_redirect(get_permalink());
             exit;
         }
+
 
     endwhile;
 endif;

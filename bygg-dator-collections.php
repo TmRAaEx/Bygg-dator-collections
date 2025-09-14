@@ -168,9 +168,97 @@ function pc_builds_load_templates($template)
 
 
 // make woocommerce products searchable
-add_filter('woocommerce_product_data_store_cpt_get_products_query', function($query, $query_vars) {
+add_filter('woocommerce_product_data_store_cpt_get_products_query', function ($query, $query_vars) {
     if (!empty($query_vars['s'])) {
         $query['s'] = $query_vars['s'];
     }
     return $query;
 }, 10, 2);
+
+//add pc_build_id on order  
+add_action('woocommerce_checkout_create_order_line_item', function ($item, $cart_item_key, $values, $order) {
+    if (!empty($values['pc_build_id'])) {
+        $item->add_meta_data('pc_build_id', absint($values['pc_build_id']), true);
+    }
+}, 10, 4);
+
+
+add_action('woocommerce_payment_complete', 'bdc_give_coupon', 10, 1);
+
+
+
+function bdc_generate_coupon(string $amount, WP_User $user)
+{
+
+
+    $coupon_code = 'pcbuild-' . wp_generate_password(8, false, false);
+    $discount_type = 'percent';
+
+    $coupon = array(
+        'post_title' => $coupon_code,
+        'post_content' => '',
+        'post_status' => 'publish',
+        'post_author' => 1,
+        'post_type' => 'shop_coupon'
+    );
+    $new_coupon_id = wp_insert_post($coupon);
+
+    update_post_meta($new_coupon_id, 'discount_type', $discount_type);
+    update_post_meta($new_coupon_id, 'coupon_amount', $amount);
+    update_post_meta($new_coupon_id, 'individual_use', 'yes');
+    update_post_meta($new_coupon_id, 'usage_limit', 1);
+    update_post_meta($new_coupon_id, 'customer_email', $user->user_email);
+
+    return $coupon_code;
+
+}
+
+function bdc_mail_coupon(string $coupon_code, WP_User $user)
+{
+
+    $subject = __('Du har fått en rabattkod!', 'pc-builds');
+    $message = sprintf(
+        __('Din kollektion har köpts! Här är din 10%% rabattkod: %s (giltig för ett köp)', 'pc-builds'),
+        $coupon_code
+    );
+    wp_mail($user->user_email, $subject, $message);
+}
+function bdc_give_coupon($order_id)
+{
+    $order = wc_get_order($order_id);
+    if (!$order)
+        return;
+
+    foreach ($order->get_items() as $item) {
+        $pc_build_id = $item->get_meta('pc_build_id');
+
+        if (!$pc_build_id)
+            continue;
+
+        $creator_id = get_post_field('post_author', $pc_build_id);
+
+        if (!$creator_id)
+            continue;
+
+        $user = get_userdata($creator_id);
+        if (!$user)
+            continue;
+
+        $coupon_code = bdc_generate_coupon('10', $user);
+
+        bdc_mail_coupon($coupon_code, $user);
+    }
+}
+
+if (!function_exists('pc_build_log')) {
+    function pc_build_log($message)
+    {
+        $upload_dir = plugin_dir_path(__FILE__);
+        $log_file   = $upload_dir . 'pc-builds.log';
+
+        $time = date("Y-m-d H:i:s");
+        $entry = "[$time] " . print_r($message, true) . PHP_EOL;
+
+        file_put_contents($log_file, $entry, FILE_APPEND);
+    }
+}

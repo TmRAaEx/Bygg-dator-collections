@@ -38,7 +38,7 @@ if ($sort === 'title') {
     $args['order'] = 'DESC';
 }
 
-$args = apply_filter('pc_build_archive_query_args', $args, $_GET);
+$args = apply_filters('pc_build_archive_query_args', $args, $_GET);
 
 $query = new WP_Query($args);
 ?>
