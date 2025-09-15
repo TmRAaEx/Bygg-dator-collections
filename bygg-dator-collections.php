@@ -149,15 +149,25 @@ add_filter('template_include', 'pc_builds_load_templates');
 // load templates 
 function pc_builds_load_templates($template)
 {
+
+    $template_dir = plugin_dir_path(__FILE__) . 'templates/';
+
     if (is_singular('pc-build')) {
-        $plugin_template = plugin_dir_path(__FILE__) . 'templates/single-pc-build.php';
+        $plugin_template = $template_dir . 'single-pc-build.php';
+        if (file_exists($plugin_template)) {
+            return $plugin_template;
+        }
+    }
+
+    if (is_page(__('mina-builds', 'pc-builds'))) {
+        $plugin_template = $template_dir . 'archive-my-builds.php';
         if (file_exists($plugin_template)) {
             return $plugin_template;
         }
     }
 
     if (is_post_type_archive('pc-build')) {
-        $plugin_template = plugin_dir_path(__FILE__) . 'templates/archive-pc-build.php';
+        $plugin_template = $template_dir . 'archive-pc-build.php';
         if (file_exists($plugin_template)) {
             return $plugin_template;
         }
@@ -254,7 +264,7 @@ if (!function_exists('pc_build_log')) {
     function pc_build_log($message)
     {
         $upload_dir = plugin_dir_path(__FILE__);
-        $log_file   = $upload_dir . 'pc-builds.log';
+        $log_file = $upload_dir . 'pc-builds.log';
 
         $time = date("Y-m-d H:i:s");
         $entry = "[$time] " . print_r($message, true) . PHP_EOL;
@@ -262,3 +272,18 @@ if (!function_exists('pc_build_log')) {
         file_put_contents($log_file, $entry, FILE_APPEND);
     }
 }
+
+add_filter('wp_get_nav_menu_items', 'custom_menu_items_visibility', 10, 2);
+
+function custom_menu_items_visibility($items, $menu)
+{
+    foreach ($items as $key => $item) {
+        if ($item->title === __('Mina builds', 'pc-builds') && !is_user_logged_in()) {
+            unset($items[$key]);
+        }
+
+
+    }
+    return $items;
+}
+
