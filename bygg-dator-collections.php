@@ -146,6 +146,12 @@ add_action('wp_enqueue_scripts', 'pc_builds_enqueue_scripts');
 add_filter('template_include', 'pc_builds_load_templates');
 
 
+//adds custom query var for user based filtering
+add_filter('query_vars', function ($vars) {
+    $vars[] = 'u';
+    return $vars;
+});
+
 // load templates 
 function pc_builds_load_templates($template)
 {
