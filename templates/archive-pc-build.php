@@ -19,8 +19,6 @@ $args = [
 $query = new WP_Query($args);
 
 
-echo $user_id;
-echo "<a href='/create-pc-build'>" . __('Skapa pc build', 'pc-builds') . "</a>";
 
 include plugin_dir_path(__DIR__) . 'templates/parts/pc-build-filter-form.php';
 

@@ -52,7 +52,7 @@ function pc_builds_register_cpt()
         'public' => true,
         'exclude_from_search' => false,
         'has_archive' => true,
-        'menu_icon' => 'dashicons-desktop', // WordPress icon
+        'menu_icon' => 'dashicons-desktop',
         'supports' => array('title', 'editor', 'thumbnail', 'custom-fields'),
         'show_in_rest' => true, // Enables Gutenberg/REST API
         'rewrite' => array('slug' => 'pc-builds'),
@@ -120,7 +120,10 @@ function pc_builds_enqueue_scripts()
     //load styles
     wp_enqueue_style(
         'pc-builds-css',
-        plugin_dir_url(__FILE__) . 'assets/css/pc-builds.css'
+        plugin_dir_url(__FILE__) . 'assets/css/pc-builds.css',
+        [],
+        filemtime(plugin_dir_path(__FILE__) . 'assets/css/pc-builds.css')
+
     );
 
 
