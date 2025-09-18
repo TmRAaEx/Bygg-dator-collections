@@ -168,7 +168,7 @@ function pc_builds_load_templates($template)
         }
     }
 
-    if (is_page(__('mina-builds', 'pc-builds'))) {
+    if (is_page(__('my-builds', 'pc-builds'))) {
         $plugin_template = $template_dir . 'archive-my-builds.php';
         if (file_exists($plugin_template)) {
             return $plugin_template;
