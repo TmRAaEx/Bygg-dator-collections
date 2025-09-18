@@ -245,8 +245,6 @@ function bdc_mail_coupon(string $coupon_code, WP_User $user)
 
     $sent = wp_mail($user->user_email, $subject, $message);
 
-    pc_build_log($sent);
-
     remove_filter('wp_mail_content_type', function () {
         return 'text/html';
     });
@@ -257,7 +255,6 @@ function bdc_give_coupon($order_id)
     $order = wc_get_order($order_id);
     if (!$order)
         return;
-    pc_build_log("Order placed");
 
     foreach ($order->get_items() as $item) {
         $pc_build_id = $item->get_meta('pc_build_id');
@@ -275,7 +272,6 @@ function bdc_give_coupon($order_id)
             continue;
 
         $coupon_code = bdc_generate_coupon('10', $user);
-        pc_build_log($coupon_code);
 
         bdc_mail_coupon($coupon_code, $user);
     }
