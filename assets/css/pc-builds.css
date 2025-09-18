@@ -118,3 +118,81 @@
 
   color: #fff;
 }
+
+/* Single pc build  */
+
+.pc-build-content {
+  margin-bottom: 2rem;
+}
+
+.pc-build-thumbnail {
+  margin: 1rem 0;
+  text-align: center;
+}
+.pc-build-thumbnail img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.pc-build-products {
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+.pc-build-product {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ddd;
+}
+.pc-build-product-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+  flex: 1;
+}
+.pc-build-product img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.pc-build-product-name {
+  font-weight: 500;
+}
+.pc-build-product-price {
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.pc-build-total {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.pc-build-buy-form {
+  margin-top: 1.5rem;
+  text-align: right;
+  
+}
+
+.pc-build-add-btn {
+  background: #0073aa;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+.pc-build-add-btn:hover {
+  background: #005f8d;
+}
