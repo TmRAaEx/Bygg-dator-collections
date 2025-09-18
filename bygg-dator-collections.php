@@ -150,6 +150,7 @@ add_filter('template_include', 'pc_builds_load_templates');
 
 
 //adds custom query var for user based filtering
+// work in progress: not fully implemented
 add_filter('query_vars', function ($vars) {
     $vars[] = 'u';
     return $vars;
@@ -209,7 +210,6 @@ add_action('woocommerce_payment_complete', 'bdc_give_coupon', 10, 1);
 function bdc_generate_coupon(string $amount, WP_User $user)
 {
 
-
     $coupon_code = 'pcbuild-' . wp_generate_password(8, false, false);
     $discount_type = 'percent';
 
@@ -231,22 +231,33 @@ function bdc_generate_coupon(string $amount, WP_User $user)
     return $coupon_code;
 
 }
-
 function bdc_mail_coupon(string $coupon_code, WP_User $user)
 {
-
     $subject = __('Du har fått en rabattkod!', 'pc-builds');
-    $message = sprintf(
-        __('Din kollektion har köpts! Här är din 10%% rabattkod: %s (giltig för ett köp)', 'pc-builds'),
-        $coupon_code
-    );
-    wp_mail($user->user_email, $subject, $message);
+
+    ob_start();
+    include plugin_dir_path(__FILE__) . 'templates/coupon-email.php';
+    $message = ob_get_clean();
+
+    add_filter('wp_mail_content_type', function () {
+        return 'text/html';
+    });
+
+    $sent = wp_mail($user->user_email, $subject, $message);
+
+    pc_build_log($sent);
+
+    remove_filter('wp_mail_content_type', function () {
+        return 'text/html';
+    });
 }
+
 function bdc_give_coupon($order_id)
 {
     $order = wc_get_order($order_id);
     if (!$order)
         return;
+    pc_build_log("Order placed");
 
     foreach ($order->get_items() as $item) {
         $pc_build_id = $item->get_meta('pc_build_id');
@@ -264,11 +275,12 @@ function bdc_give_coupon($order_id)
             continue;
 
         $coupon_code = bdc_generate_coupon('10', $user);
+        pc_build_log($coupon_code);
 
         bdc_mail_coupon($coupon_code, $user);
     }
 }
-
+//debug printing with file inside plugin
 if (!function_exists('pc_build_log')) {
     function pc_build_log($message)
     {
